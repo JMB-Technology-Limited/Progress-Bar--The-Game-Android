@@ -2,13 +2,17 @@ package uk.co.jarofgreen.progressbarthegame;
 
 import java.security.acl.LastOwnerException;
 
+import android.opengl.Visibility;
 import android.os.Bundle;
 import android.os.Handler;
 import android.app.Activity;
 import android.util.Log;
 import android.view.Menu;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 /**
@@ -28,6 +32,7 @@ public class GameActivity extends Activity {
 		progressBar.setMax(100);
 		handler=new Handler();
 		levelTextView = (TextView)findViewById(R.id.level);
+		nextLevelButton = (Button)findViewById(R.id.nextLevel);
 		startLevel();
 	}
 
@@ -35,6 +40,7 @@ public class GameActivity extends Activity {
 	protected int timePerPercent = 100;
 	protected ProgressBar progressBar;
 	protected TextView levelTextView;
+	protected Button nextLevelButton;
 	
 	Handler handler;
 	final Runnable runnable = new Runnable() {
@@ -55,7 +61,9 @@ public class GameActivity extends Activity {
 		int current = progressBar.getProgress();
 		Log.d("CURRENT",Integer.toString(current));
 		if (current == 99) {
-			
+			Toast.makeText(this, "Congratulations!", Toast.LENGTH_LONG).show();
+			progressBar.setProgress(100);
+			nextLevelButton.setVisibility(View.VISIBLE);
 		} else {
 			progressBar.setProgress(current+1);
 			handler.postDelayed(runnable, getTimeTillNextPerCent()); 
