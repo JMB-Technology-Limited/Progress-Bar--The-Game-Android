@@ -4,5 +4,5 @@
     <string name="app_name">Progress Bar: The Game</string>
     <string name="action_settings">Settings</string>
  	<string name="activity_splash_screen_start">Start playing</string>
- 	
+ 	<string name="activity_splash_screen_next_level">Next Level</string>
 </resources>
