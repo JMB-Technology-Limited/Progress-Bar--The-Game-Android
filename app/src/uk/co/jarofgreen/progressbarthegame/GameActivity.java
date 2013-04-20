@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,7 +29,6 @@ public class GameActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_game);
 		progressBar = (ProgressBar)findViewById(R.id.progressBar);
-		progressBar.setMax(100);
 		handler=new Handler();
 		levelTextView = (TextView)findViewById(R.id.level);
 		percentTextView = (TextView)findViewById(R.id.percent);
@@ -106,7 +104,8 @@ public class GameActivity extends Activity {
 	}
 	
 	protected void drawProgressBar() {
-		progressBar.setProgress(currentPercent);
+		progressBar.setPercent(currentPercent);
+		progressBar.invalidate();
 		percentTextView.setText(Integer.toString(currentPercent)+"%");
 	}
 	
