@@ -36,9 +36,16 @@ public class GameActivity extends Activity {
 		percentTextView = (TextView)findViewById(R.id.percent);
 		nextLevelButton = (Button)findViewById(R.id.nextLevel);
 		randomGenerator = new Random();
-		startLevel();
+		handler.postDelayed(runnableStartGame, 250); 
 	}
-
+	
+	final Runnable runnableStartGame = new Runnable() {
+		public void run() {
+			GameActivity.this.startLevel();
+		}
+	};
+	
+	protected boolean levelRunning = false;
 	protected int level = 1;
 	protected int currentPercent = 0;
 	protected int timePerPercent = 100;
@@ -57,12 +64,31 @@ public class GameActivity extends Activity {
 	};;
 	
 	
+	
+	
+	@Override
+	protected void onPause() {
+		super.onPause();
+		if (levelRunning) {
+			handler.removeCallbacks(runnable);
+		}
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		if (levelRunning) {
+			handler.postDelayed(runnable, getTimeTillNextPerCent()); 
+		}
+	}
+
 	protected void startLevel() {
 		currentPercent = 0;
 		timePerPercent = level * 75;
 		randomTimePerPercent = level * 30;
 		levelTextView.setText("Level "+Integer.toString(level));
 		drawProgressBar();
+		levelRunning = true;
 		handler.postDelayed(runnable, getTimeTillNextPerCent()); 
 	}
 	
@@ -70,9 +96,10 @@ public class GameActivity extends Activity {
 		currentPercent = currentPercent + 1;
 		Log.d("CURRENT",Integer.toString(currentPercent));
 		drawProgressBar();
-		if (currentPercent == 100) {
+		if (currentPercent >= 100) {
 			Toast.makeText(this, "Congratulations!", Toast.LENGTH_LONG).show();
 			nextLevelButton.setVisibility(View.VISIBLE);
+			levelRunning = false;
 		} else {
 			handler.postDelayed(runnable, getTimeTillNextPerCent()); 
 		}
