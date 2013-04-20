@@ -46,6 +46,7 @@ public class GameActivity extends Activity {
 	protected boolean levelRunning = false;
 	protected int level = 1;
 	protected int currentPercent = 0;
+	protected int pausePercent = 0;
 	protected int timePerPercent = 100;
 	protected int randomTimePerPercent = 100;
 	protected ProgressBar progressBar;
@@ -86,6 +87,7 @@ public class GameActivity extends Activity {
 		randomTimePerPercent = level * 30;
 		levelTextView.setText("Level "+Integer.toString(level));
 		drawProgressBar();
+		pausePercent = randomGenerator.nextInt(90)+5;
 		levelRunning = true;
 		handler.postDelayed(runnable, getTimeTillNextPerCent()); 
 	}
@@ -110,6 +112,11 @@ public class GameActivity extends Activity {
 	}
 	
 	protected int getTimeTillNextPerCent() {
+		
+		if (level > 2 && currentPercent == pausePercent && randomGenerator.nextBoolean() && randomGenerator.nextBoolean()) {
+			return 1000 + randomGenerator.nextInt(level * 2000);
+		}
+		
 		if (randomGenerator.nextBoolean()) {
 			return timePerPercent + randomGenerator.nextInt(randomTimePerPercent);
 		} else {
