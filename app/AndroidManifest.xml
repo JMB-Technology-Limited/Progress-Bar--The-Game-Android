@@ -24,6 +24,7 @@
         </activity>
         <activity
             android:name="uk.co.jarofgreen.progressbarthegame.GameActivity"
+            android:configChanges="orientation|screenSize"
             android:label="@string/app_name" >
         </activity>       
     </application>
