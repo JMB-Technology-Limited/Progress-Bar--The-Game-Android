@@ -1,6 +1,7 @@
 package uk.co.jarofgreen.progressbarthegame;
 
 import java.security.acl.LastOwnerException;
+import java.util.Random;
 
 import android.opengl.Visibility;
 import android.os.Bundle;
@@ -33,14 +34,17 @@ public class GameActivity extends Activity {
 		handler=new Handler();
 		levelTextView = (TextView)findViewById(R.id.level);
 		nextLevelButton = (Button)findViewById(R.id.nextLevel);
+		randomGenerator = new Random();
 		startLevel();
 	}
 
 	protected int level = 1;
 	protected int timePerPercent = 100;
+	protected int randomTimePerPercent = 100;
 	protected ProgressBar progressBar;
 	protected TextView levelTextView;
 	protected Button nextLevelButton;
+	private Random randomGenerator;
 	
 	Handler handler;
 	final Runnable runnable = new Runnable() {
@@ -52,6 +56,7 @@ public class GameActivity extends Activity {
 	
 	protected void startLevel() {
 		timePerPercent = level * 75;
+		randomTimePerPercent = level * 30;
 		levelTextView.setText("Level "+Integer.toString(level));
 		progressBar.setProgress(0);
 		handler.postDelayed(runnable, getTimeTillNextPerCent()); 
@@ -71,7 +76,11 @@ public class GameActivity extends Activity {
 	}
 	
 	protected int getTimeTillNextPerCent() {
-		return timePerPercent;
+		if (randomGenerator.nextBoolean()) {
+			return timePerPercent + randomGenerator.nextInt(randomTimePerPercent);
+		} else {
+			return timePerPercent - randomGenerator.nextInt(randomTimePerPercent);
+		}
 	}
 	
 	public void nextLevel(View v) {
