@@ -15,7 +15,14 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true" />
-
+    
+    <TextView
+        android:id="@+id/percent"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/progressBar"
+        android:textSize="16sp" />
+    
     <Button
         android:id="@+id/nextLevel"
         android:layout_width="fill_parent"

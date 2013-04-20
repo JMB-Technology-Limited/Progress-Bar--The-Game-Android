@@ -33,6 +33,7 @@ public class GameActivity extends Activity {
 		progressBar.setMax(100);
 		handler=new Handler();
 		levelTextView = (TextView)findViewById(R.id.level);
+		percentTextView = (TextView)findViewById(R.id.percent);
 		nextLevelButton = (Button)findViewById(R.id.nextLevel);
 		randomGenerator = new Random();
 		startLevel();
@@ -43,6 +44,7 @@ public class GameActivity extends Activity {
 	protected int randomTimePerPercent = 100;
 	protected ProgressBar progressBar;
 	protected TextView levelTextView;
+	protected TextView percentTextView;	
 	protected Button nextLevelButton;
 	private Random randomGenerator;
 	
@@ -59,6 +61,7 @@ public class GameActivity extends Activity {
 		randomTimePerPercent = level * 30;
 		levelTextView.setText("Level "+Integer.toString(level));
 		progressBar.setProgress(0);
+		percentTextView.setText("0%");
 		handler.postDelayed(runnable, getTimeTillNextPerCent()); 
 	}
 	
@@ -68,9 +71,11 @@ public class GameActivity extends Activity {
 		if (current == 99) {
 			Toast.makeText(this, "Congratulations!", Toast.LENGTH_LONG).show();
 			progressBar.setProgress(100);
+			percentTextView.setText("100%");
 			nextLevelButton.setVisibility(View.VISIBLE);
 		} else {
 			progressBar.setProgress(current+1);
+			percentTextView.setText(Integer.toString(current+1)+"%");
 			handler.postDelayed(runnable, getTimeTillNextPerCent()); 
 		}
 	}
