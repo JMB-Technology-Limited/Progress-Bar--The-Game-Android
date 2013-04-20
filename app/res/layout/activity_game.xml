@@ -23,7 +23,7 @@
         android:layout_alignParentBottom="true"
         android:visibility="gone"
         android:clickable="true"
-        android:onClick="next"       
+        android:onClick="nextLevel"       
         android:text="@string/activity_splash_screen_next_level"
         />
     

@@ -51,7 +51,7 @@ public class GameActivity extends Activity {
 	
 	
 	protected void startLevel() {
-		timePerPercent = level * 100;
+		timePerPercent = level * 75;
 		levelTextView.setText("Level "+Integer.toString(level));
 		progressBar.setProgress(0);
 		handler.postDelayed(runnable, getTimeTillNextPerCent()); 
@@ -72,5 +72,11 @@ public class GameActivity extends Activity {
 	
 	protected int getTimeTillNextPerCent() {
 		return timePerPercent;
+	}
+	
+	public void nextLevel(View v) {
+		nextLevelButton.setVisibility(View.INVISIBLE);
+		level = level + 1;
+		startLevel();
 	}
 }
