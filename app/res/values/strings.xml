@@ -5,4 +5,12 @@
     <string name="action_settings">Settings</string>
  	<string name="activity_splash_screen_start">Start playing</string>
  	<string name="activity_splash_screen_next_level">Next Level</string>
+ 	
+ 	<string name="level_finished_message_0">Congratulations!</string>
+ 	<string name="level_finished_message_1">Well done!</string>
+ 	<string name="level_finished_message_2">Good work!</string>
+ 	<string name="level_finished_message_3">Well played!</string>
+ 	<string name="level_finished_message_4">Another level down!</string>
+ 	<string name="level_finished_message_5">Another progress bar defeated!</string>
+ 	<string name="level_finished_message_6">Great effort!</string>
 </resources>

@@ -1,6 +1,8 @@
 package uk.co.jarofgreen.progressbarthegame;
 
 import java.security.acl.LastOwnerException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import android.opengl.Visibility;
@@ -34,6 +36,13 @@ public class GameActivity extends Activity {
 		percentTextView = (TextView)findViewById(R.id.percent);
 		nextLevelButton = (Button)findViewById(R.id.nextLevel);
 		randomGenerator = new Random();
+		finishedMessages.add(getString(R.string.level_finished_message_0));
+		finishedMessages.add(getString(R.string.level_finished_message_1));
+		finishedMessages.add(getString(R.string.level_finished_message_2));
+		finishedMessages.add(getString(R.string.level_finished_message_3));
+		finishedMessages.add(getString(R.string.level_finished_message_4));
+		finishedMessages.add(getString(R.string.level_finished_message_5));
+		finishedMessages.add(getString(R.string.level_finished_message_6));
 		handler.postDelayed(runnableStartGame, 250); 
 	}
 	
@@ -54,6 +63,8 @@ public class GameActivity extends Activity {
 	protected TextView percentTextView;	
 	protected Button nextLevelButton;
 	private Random randomGenerator;
+	
+	List<String> finishedMessages = new ArrayList<String>() ;
 	
 	Handler handler;
 	final Runnable runnable = new Runnable() {
@@ -97,7 +108,8 @@ public class GameActivity extends Activity {
 		Log.d("CURRENT",Integer.toString(currentPercent));
 		drawProgressBar();
 		if (currentPercent >= 100) {
-			Toast.makeText(this, "Congratulations!", Toast.LENGTH_LONG).show();
+			String msg = finishedMessages.get(randomGenerator.nextInt(finishedMessages.size()));
+			Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
 			nextLevelButton.setVisibility(View.VISIBLE);
 			levelRunning = false;
 		} else {
