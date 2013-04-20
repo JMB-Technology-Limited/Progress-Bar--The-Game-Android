@@ -40,6 +40,7 @@ public class GameActivity extends Activity {
 	}
 
 	protected int level = 1;
+	protected int currentPercent = 0;
 	protected int timePerPercent = 100;
 	protected int randomTimePerPercent = 100;
 	protected ProgressBar progressBar;
@@ -57,27 +58,29 @@ public class GameActivity extends Activity {
 	
 	
 	protected void startLevel() {
+		currentPercent = 0;
 		timePerPercent = level * 75;
 		randomTimePerPercent = level * 30;
 		levelTextView.setText("Level "+Integer.toString(level));
-		progressBar.setProgress(0);
-		percentTextView.setText("0%");
+		drawProgressBar();
 		handler.postDelayed(runnable, getTimeTillNextPerCent()); 
 	}
 	
 	protected void addOnePerCent() {
-		int current = progressBar.getProgress();
-		Log.d("CURRENT",Integer.toString(current));
-		if (current == 99) {
+		currentPercent = currentPercent + 1;
+		Log.d("CURRENT",Integer.toString(currentPercent));
+		drawProgressBar();
+		if (currentPercent == 100) {
 			Toast.makeText(this, "Congratulations!", Toast.LENGTH_LONG).show();
-			progressBar.setProgress(100);
-			percentTextView.setText("100%");
 			nextLevelButton.setVisibility(View.VISIBLE);
 		} else {
-			progressBar.setProgress(current+1);
-			percentTextView.setText(Integer.toString(current+1)+"%");
 			handler.postDelayed(runnable, getTimeTillNextPerCent()); 
 		}
+	}
+	
+	protected void drawProgressBar() {
+		progressBar.setProgress(currentPercent);
+		percentTextView.setText(Integer.toString(currentPercent)+"%");
 	}
 	
 	protected int getTimeTillNextPerCent() {
