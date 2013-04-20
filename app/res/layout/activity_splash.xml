@@ -12,6 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:clickable="true"
+        android:onClick="start"
         android:text="@string/activity_splash_screen_start"
         android:textSize="24sp" />
 
